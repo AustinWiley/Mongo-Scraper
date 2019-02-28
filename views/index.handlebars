@@ -13,7 +13,9 @@
   
   <section class="section">
     <div class="container">
-          {{> beers/beer-button}}
+          {{#each data}}
+            {{> beers/beer-button}}
+          {{/each}}
     </div>
         <div class="container">
           {{> beers/beer-button}}

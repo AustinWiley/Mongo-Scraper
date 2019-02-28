@@ -9,7 +9,7 @@ module.exports = function(app) {
   db.Article.find({})
     .then(function(dbArticle) {
       // If we were able to successfully find Articles, send them back to the client
-      res.json(dbArticle);
+      // res.json(dbArticle);
       // console.log(dbArticle[0].link)
        res.render("index", {data: dbArticle});
     })
