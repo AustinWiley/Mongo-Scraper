@@ -1,31 +1,84 @@
-// Requiring path to so we can use relative routes to our HTML files
-var path = require("path");
-
-// Requiring our custom middleware for checking if a user is logged in
-var isAuthenticated = require("../config/middleware/isAuthenticated");
+var db = require("../models");
 
 module.exports = function(app) {
-
+  // Load index page
   app.get("/", function(req, res) {
-    // If the user already has an account send them to the members page
-    if (req.user) {
-      res.redirect("/members");
-    }
-    res.sendFile(path.join(__dirname, "../public/signup.html"));
-  });
 
-  app.get("/login", function(req, res) {
-    // If the user already has an account send them to the members page
-    if (req.user) {
-      res.redirect("/members");
-    }
-    res.sendFile(path.join(__dirname, "../public/login.html"));
-  });
+    res.render("index");
 
-  // Here we've add our isAuthenticated middleware to this route.
-  // If a user who is not logged in tries to access this route they will be redirected to the signup page
-  app.get("/members", isAuthenticated, function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/members.html"));
-  });
+});
 
+
+  // app.get("/", function(req, res) {
+  //   db.Beer.findAll({}).then(function(dbBeers) {
+  //     // res.json(dbBeers);
+  //     res.render("index", {
+  //       //msg: "Welcome!",
+  //       beers: dbBeers
+  //     });
+  //   });
+  // });
+
+  // app.get("/stage0/:id", function(req, res) {
+  //   db.Beer.findAll({}).then(function(dbBeers) {
+  //     // res.json(dbBeers);
+  //     res.render("stage0", {
+  //       beers: dbBeers
+  //     });
+  //   });
+  // });
+
+  // app.get("/stage0", function(req, res) {
+  //   db.Beer.findAll({}).then(function(dbBeers) {
+  //     res.render("stage0", {
+  //       beers: dbBeers
+  //     });
+  //   });
+  // });
+
+  // app.get("/stage1/:id", function(req, res) {
+  //   db.Beer.findOne({ where: { id: req.params.id } }).then(function(dbBeers) {
+  //     res.render("stage1", {
+  //       beers: dbBeers
+  //     });
+  //   });
+  // });
+
+  // app.get("/stage2/:id", function(req, res) {
+  //   db.Beer.findOne({ where: { id: req.params.id } }).then(function(dbBeers) {
+  //     res.render("stage2", {
+  //       beers: dbBeers
+  //     });
+  //   });
+  // });
+
+  // app.get("/stage3/:id", function(req, res) {
+  //   db.Beer.findOne({ where: { id: req.params.id } }).then(function(dbBeers) {
+  //     res.render("stage3", {
+  //       beers: dbBeers
+  //     });
+  //   });
+  // });
+
+  // app.get("/stage4/:id", function(req, res) {
+  //   db.Beer.findOne({ where: { id: req.params.id } }).then(function(dbBeers) {
+  //     res.render("stage4", {
+  //       beers: dbBeers
+  //     });
+  //   });
+  // });
+
+  // // Load beer page and pass in an beer by id
+  // app.get("/beer/:id", function(req, res) {
+  //   db.Beer.findOne({ where: { id: req.params.id } }).then(function(dbBeer) {
+  //     res.render("beer", {
+  //       beer: dbBeer
+  //     });
+  //   });
+  // });
+
+  // // Render 404 page for any unmatched routes
+  // app.get("*", function(req, res) {
+  //   res.render("404");
+  // });
 };
