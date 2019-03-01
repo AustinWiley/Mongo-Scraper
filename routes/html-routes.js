@@ -1,4 +1,5 @@
 var db = require("../models");
+var axios = require("axios");
 
 module.exports = function(app) {
   // Load index page
@@ -12,6 +13,7 @@ module.exports = function(app) {
       // res.json(dbArticle);
       // console.log(dbArticle[0].link)
        res.render("index", {data: dbArticle});
+       console.log(dbArticle)
     })
     .catch(function(err) {
       // If an error occurred, send it to the client

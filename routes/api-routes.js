@@ -1,5 +1,7 @@
 // Requiring our models
 var db = require("../models");
+var axios = require("axios");
+var cheerio = require("cheerio");
 
 // Routes
 // =============================================================
@@ -7,6 +9,7 @@ module.exports = function(app) {
   //hi
   // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
+  console.log("scrape it now")
   // First, we grab the body of the html with axios
   axios.get("http://www.echojs.com/").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
@@ -41,6 +44,26 @@ app.get("/scrape", function(req, res) {
     res.send("Scrape Complete");
   });
 });
+
+
+
+app.get("/delete", function(req, res) {
+  // Route for getting all Articles from the db
+  console.log("delete it all now")
+    // Grab every document in the Articles collection
+    db.Article.deleteMany({})
+      .then(function(dbArticle) {
+        // If we were able to successfully find Articles, send them back to the client
+        // res.json(dbArticle);
+        // console.log(dbArticle[0].link)
+         res.render("index");
+        console.log(dbArticle)
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+    });
 
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {

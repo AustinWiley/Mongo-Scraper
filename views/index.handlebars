@@ -13,14 +13,31 @@
   
   <section class="section">
     <div class="container">
+                {{#if data}}
           {{#each data}}
             {{> beers/beer-button}}
           {{/each}}
-    </div>
+          {{else}}
+          <h1>nope</h1>
+            {{/if}}
+
+{{#if FriendStatus.IsFriend}}
+  <div class="ui-state-default ui-corner-all" title=".ui-icon-mail-closed"><span class="ui-icon ui-icon-mail-closed"></span></div>
+{{else}}
+  {{#if FriendStatus.FriendRequested}}
+    <div class="ui-state-default ui-corner-all" title=".ui-icon-check"><span class="ui-icon ui-icon-check"></span></div>
+  {{else}}
+    <div class="ui-state-default ui-corner-all" title=".ui-icon-plusthick"><span class="ui-icon ui-icon-plusthick"></span></div>
+  {{/if}}
+{{/if}}
+
+<script src="../public/js/app.js" type="text/javascript"></script>
+
+    {{!-- </div>
         <div class="container">
           {{> beers/beer-button}}
     </div>
-  </section>
+  </section> --}}
   
 
 
