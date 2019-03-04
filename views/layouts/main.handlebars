@@ -150,11 +150,14 @@ var handleDelete = function(event) {
 };
 
 var handleSave = function(event) {
+  console.log($(this).data('id'))//this totally works!!
   console.log("you clicked savae button")
   console.log(this)
+  {{!-- console.log(this) --}}
   event.preventDefault();
-  API.updateSave(this.id)
-  setTimeout(returnHome, 500);
+  {{!-- console.log(this.attr('data-id')) --}}
+  {{!-- API.updateSave(this.attr("data-id")) --}}
+  {{!-- setTimeout(returnHome, 500); --}}
 }
 
 //directs user back home automatically after submitting
