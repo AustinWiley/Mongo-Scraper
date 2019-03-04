@@ -11,26 +11,22 @@ module.exports = function(app) {
 app.get("/scrape", function(req, res) {
   console.log("scrape it now")
   // First, we grab the body of the html with axios
-  axios.get("http://kxan.com/category/news/local/austin/").then(function(response) {
+  axios.get("https://www.nytimes.com/section/world").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
 
     // Now, we grab every h2 within an article tag, and do the following:
-    $("article.media-object", "main#main").each(function(i, element) {
+    $("div.story-body").each(function(i, element) {
       // Save an empty result object
       var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
-      var article = {};
+      result.link = $(element).find("a").attr("href");
+      result.title = $(element).find("h2.headline").text().trim();
+      result.summary = $(element).find("p.summary").text().trim();
 
-      article.postid = $(element).attr("id");
-      article.title = $(element).children("header").children("h1").children("a").text();
-      article.link = $(element).children("header").children("h1").children("a").attr("href");
-      article.img = $(element).children("figure").children("a").children("img").attr("src");
-      article.summary = $(element).children("div").children("p").text();
-      console.log(article)
       // Create a new Article using the `result` object built from scraping
-      db.Article.create(article)
+      db.Article.create(result)
         .then(function(dbArticle) {
           // View the added result in the console
           console.log(dbArticle);
