@@ -21,6 +21,11 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
+  //`saved` tells us if the article is saved by the user or not
+  saved: {
+    type: Boolean,
+    default: true
+  },
   // `note` is an object that stores a Note id
   // The ref property links the ObjectId to the Note model
   // This allows us to populate the Article with an associated Note

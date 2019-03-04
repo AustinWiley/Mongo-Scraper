@@ -93,9 +93,10 @@
 // Get references to page elements
 var $scrape = $("#scrape");
 var $delete = $("#delete");
+var $saveButton = $(".save-button");
 
 // The API object contains methods for each kind of request we'll make
-var API = {
+let API = {
   saveArticle: function(beer) {
     return $.ajax({
       headers: {
@@ -104,6 +105,12 @@ var API = {
       type: "POST",
       url: "api/beers",
       data: JSON.stringify(beer)
+    });
+  },
+    updateSave: function(id) {
+    return $.ajax({
+      url: "api/beers/" + id,
+      type: "PUT"
     });
   },
   getArticles: function() {
@@ -142,6 +149,14 @@ var handleDelete = function(event) {
   setTimeout(returnHome, 1000);
 };
 
+var handleSave = function(event) {
+  console.log("you clicked savae button")
+  console.log(this)
+  event.preventDefault();
+  API.updateSave(this.id)
+  setTimeout(returnHome, 500);
+}
+
 //directs user back home automatically after submitting
 var returnHome = function() {
   window.location.href = "/";
@@ -149,6 +164,7 @@ var returnHome = function() {
 
 $scrape.on("click", handleScrape);
 $delete.on("click", handleDelete);
+$saveButton.on("click", handleSave);
 
 
 
