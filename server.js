@@ -66,7 +66,8 @@ app.use(express.static("public"));
 
 // mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/testyMcTestFace", { useNewUrlParser: true });
 
 // Routes=====================================================  Routes =======================================================================
 
