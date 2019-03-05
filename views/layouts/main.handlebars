@@ -44,7 +44,7 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item">
+        <a class="navbar-item home">
           Home
         </a>
 
@@ -94,6 +94,7 @@
 var $scrape = $("#scrape");
 var $delete = $("#delete");
 var $saveButton = $(".save-button");
+var $home = $('.home');
 
 // The API object contains methods for each kind of request we'll make
 let API = {
@@ -109,7 +110,7 @@ let API = {
   },
     updateSave: function(id) {
     return $.ajax({
-      url: "api/beers/" + id,
+      url: "save/" + id,
       type: "PUT"
     });
   },
@@ -151,13 +152,11 @@ var handleDelete = function(event) {
 
 var handleSave = function(event) {
   console.log($(this).data('id'))//this totally works!!
-  console.log("you clicked savae button")
-  console.log(this)
-  {{!-- console.log(this) --}}
+  let id = $(this).data('id');
   event.preventDefault();
-  {{!-- console.log(this.attr('data-id')) --}}
-  {{!-- API.updateSave(this.attr("data-id")) --}}
-  {{!-- setTimeout(returnHome, 500); --}}
+
+  API.updateSave(id)
+  setTimeout(returnHome, 500);
 }
 
 //directs user back home automatically after submitting
@@ -168,6 +167,7 @@ var returnHome = function() {
 $scrape.on("click", handleScrape);
 $delete.on("click", handleDelete);
 $saveButton.on("click", handleSave);
+$home.on("click", returnHome);
 
 
 

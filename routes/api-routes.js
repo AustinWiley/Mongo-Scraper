@@ -68,14 +68,15 @@ app.delete("/delete", function(req, res) {
     app.put("/save/:id", function(req, res) {
       // Route for getting all Articles from the db
       console.log("save it now")
-      console.log(req.id)
+      console.log(req.params.id)
         // Grab every document in the Articles collection
-        db.Article.deleteMany({})
+        // db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id });
+        db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: true })
           .then(function(dbArticle) {
             // If we were able to successfully find Articles, send them back to the client
             // res.json(dbArticle);
             // console.log(dbArticle[0].link)
-             res.render("index");
+             res.render("/");
             console.log(dbArticle)
           })
           .catch(function(err) {
