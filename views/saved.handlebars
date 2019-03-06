@@ -3,7 +3,7 @@
     <div class="hero-body">
       <div class="container centered">
         <h1 class="title has-text-primary is-size-1">
-          Mongo Scraper
+          Saved Articles
         </h1>
         <h2 class="subtitle has-text-primary">
           NPR Edition
@@ -16,8 +16,8 @@
   <div class="container">
     {{#if data}}
     {{#each data}}
-    {{> cards/scraped-card}}
+    {{> cards/saved-card}}
     {{/each}}
     {{else}}
-    <h1>No Articles Scraped</h1>
+    <h1>No Articles Saved</h1>
     {{/if}}

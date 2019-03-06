@@ -1,9 +1,17 @@
-<div class="col s6 m4 l3 ">
-  <div class="card-panel blue">
-    <h5 class="white-text m1"> {{brand}}</h5>
-    <span class="white-text">Style: {{style}}. Brewed by {{brewerName}}. Created {{brewDate}}.
-    </span>
-    </br>
-    <a href="/stage{{this.stage}}/{{this.id}}"><button data-stage="{{this.stage}}"class="edit-btn right btn-small black">View</button></a>
+
+{{#if this.saved}}
+<div class="card">
+  <div class="card-content">
+    <div class="media">
+      <div class="media-left">
+       <a class="button button-right is-primary remove-button" data-id={{this.id}}>Remove</a>
+      </div>
+      <div class="media-content">
+        <p><a href={{this.link}} class="title is-4">{{this.title}}</a></p>
+        <p class="subtitle is-6">{{this.summary}}</p>
+      </div>
+    </div>
   </div>
 </div>
+<br>
+{{/if}}

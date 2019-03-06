@@ -48,7 +48,7 @@
           Home
         </a>
 
-        <a class="navbar-item">
+        <a class="navbar-item" id="save-page" href="localhost:3000/saved">
           Saved Articles
         </a>
 
@@ -69,19 +69,7 @@
     </div>
     </div>
   </nav>
-  {{!-- Hero --}}
-  <section class="hero hero-image is-medium is-bold has-bg-img">
-    <div class="hero-body">
-      <div class="container centered">
-        <h1 class="title has-text-primary is-size-1">
-          Mongo Scraper
-        </h1>
-        <h2 class="subtitle has-text-primary">
-          NY Times Edition
-        </h2>
-      </div>
-    </div>
-  </section>
+
   {{{body}}}
 
   {{!-- Scripts --}}
@@ -95,6 +83,8 @@ var $scrape = $("#scrape");
 var $delete = $("#delete");
 var $saveButton = $(".save-button");
 var $home = $('.home');
+var $removeButton = $('.remove-button');
+var $savedPage = $('#save-page')
 
 // The API object contains methods for each kind of request we'll make
 let API = {
@@ -114,9 +104,21 @@ let API = {
       type: "PUT"
     });
   },
+      updateRemove: function(id) {
+    return $.ajax({
+      url: "remove/" + id,
+      type: "PUT"
+    });
+  },
   getArticles: function() {
     return $.ajax({
       url: "/",
+      type: "GET"
+    });
+  },
+    getSavedArticles: function() {
+    return $.ajax({
+      url: "/saved",
       type: "GET"
     });
   },
@@ -157,6 +159,21 @@ var handleSave = function(event) {
 
   API.updateSave(id)
   setTimeout(returnHome, 500);
+};
+
+var handleRemove = function(event) {
+  console.log($(this).data('id'))//this totally works!!
+  let id = $(this).data('id');
+  event.preventDefault();
+
+  API.updateRemove(id)
+  setTimeout(goToSaved, 500);
+};
+
+var goToSaved = function() {
+  console.log('you clicked go to save')
+  {{!-- API.getSavedArticles(); --}}
+    window.location.href = "/saved";
 }
 
 //directs user back home automatically after submitting
@@ -167,7 +184,9 @@ var returnHome = function() {
 $scrape.on("click", handleScrape);
 $delete.on("click", handleDelete);
 $saveButton.on("click", handleSave);
+$removeButton.on("click", handleRemove);
 $home.on("click", returnHome);
+$savedPage.on("click", goToSaved);
 
 
 
